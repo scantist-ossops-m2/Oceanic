@@ -793,7 +793,7 @@ export default class Shard extends TypedEmitter<ShardEvents> {
                     guildID:   packet.d.guild_id,
                     id:        packet.d.message_id ,
                     // @TODO (1.11.0): Convert this to only be User, and add a member field
-                    author:    packet.d.message_author_id === undefined ? undefined : guild?.members.get(packet.d.user_id) ?? this.client.users.get(packet.d.user_id) ?? { id: packet.d.message_author_id }
+                    author:    packet.d.message_author_id === undefined ? undefined : guild?.members.get(packet.d.message_author_id) ?? this.client.users.get(packet.d.message_author_id) ?? { id: packet.d.message_author_id }
                 }, reactor, packet.d.emoji, packet.d.burst);
                 break;
             }
