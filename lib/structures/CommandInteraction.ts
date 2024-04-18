@@ -22,7 +22,8 @@ import type {
     ApplicationCommandInteractionResolvedData,
     InitialInteractionContent,
     InteractionGuild,
-    AuthorizingIntegrationOwners
+    AuthorizingIntegrationOwners,
+    EditInteractionContent
 } from "../types/interactions";
 import type Client from "../Client";
 import type { RawMember } from "../types/guilds";
@@ -242,7 +243,7 @@ export default class CommandInteraction<T extends AnyInteractionChannel | Uncach
      * @param messageID The ID of the message.
      * @param options The options for editing the followup message.
      */
-    async editFollowup(messageID: string, options: InteractionContent): Promise<Message<T>> {
+    async editFollowup(messageID: string, options: EditInteractionContent): Promise<Message<T>> {
         return this.client.rest.interactions.editFollowupMessage<T>(this.applicationID, this.token, messageID, options);
     }
 
@@ -250,7 +251,7 @@ export default class CommandInteraction<T extends AnyInteractionChannel | Uncach
      * Edit the original interaction response.
      * @param options The options for editing the original message.
      */
-    async editOriginal(options: InteractionContent): Promise<Message<T>> {
+    async editOriginal(options: EditInteractionContent): Promise<Message<T>> {
         return this.client.rest.interactions.editOriginalMessage<T>(this.applicationID, this.token, options);
     }
 

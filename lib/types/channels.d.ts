@@ -6,6 +6,7 @@ import type { File } from "./request-handler";
 import type { RawScheduledEvent } from "./scheduled-events";
 import { type  Uncached } from "./shared";
 import type { AuthorizingIntegrationOwners, SelectMenuDefaultValue } from "./interactions";
+import type { Nullable } from "./misc";
 import type {
     ButtonStyles,
     ChannelTypes,
@@ -894,7 +895,7 @@ export interface GetReactionsOptions {
     type?: ReactionType;
 }
 
-export interface EditMessageOptions extends Pick<CreateMessageOptions, "content" | "embeds" | "allowedMentions" | "components" | "attachments" | "files" | "flags"> {}
+export interface EditMessageOptions extends Nullable<Pick<CreateMessageOptions, "content" | "embeds" | "allowedMentions" | "components" | "attachments" | "files" | "flags">> {}
 
 export interface EditPermissionOptions {
     /** The permissions to allow. */
@@ -1237,6 +1238,6 @@ export interface PollAnswerCount {
     id: number;
     /** If the current user has voted for this answer. */
     meVoted: boolean;
-    /** The IDs of the users that voted. This will always be out of sync unless you either {@link Poll#getAnswerUsers|fetch the answer voters over REST}, or if the poll was created after the bot started, and stays in the cache. */
+    /** The IDs of the users that voted. This will always be out of sync unless you either {@link Poll#getAnswerUsers | fetch the answer voters over REST}, or if the poll was created after the bot started, and stays in the cache. */
     users: Array<string>;
 }

@@ -1,5 +1,5 @@
 /** @module Types/Interactions */
-import type { ExecuteWebhookOptions } from "./webhooks";
+import type { EditWebhookMessageOptions, ExecuteWebhookOptions } from "./webhooks";
 import type {
     AnyTextableGuildChannel,
     AnyPrivateChannel,
@@ -46,6 +46,7 @@ import type Permission from "../structures/Permission";
 import type ModalSubmitInteractionComponentsWrapper from "../util/interactions/ModalSubmitInteractionComponentsWrapper";
 
 export interface InteractionContent extends Pick<ExecuteWebhookOptions, "tts" | "content" | "embeds" | "allowedMentions" | "flags" | "components" | "attachments" | "files" | "poll"> {}
+export interface EditInteractionContent extends Pick<EditWebhookMessageOptions, "content" | "embeds" | "allowedMentions" | "components" | "attachments" | "files"> {}
 export interface InitialInteractionContent extends Omit<InteractionContent, "attachments" | "files"> {}
 
 export type InteractionResponse = PingInteractionResponse | MessageInteractionResponse | DeferredInteractionResponse | AutocompleteInteractionResponse | ModalSubmitInteractionResponse | PremiumRequiredResponse;

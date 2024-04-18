@@ -12,6 +12,7 @@ import type TestEntitlement from "./TestEntitlement";
 import { InteractionResponseTypes, type InteractionTypes, type InteractionContextTypes } from "../Constants";
 import type {
     AuthorizingIntegrationOwners,
+    EditInteractionContent,
     InitialInteractionContent,
     InteractionContent,
     InteractionGuild,
@@ -185,7 +186,7 @@ export default class ModalSubmitInteraction<T extends AnyInteractionChannel | Un
      * @param messageID The ID of the message.
      * @param options The options for editing the followup message.
      */
-    async editFollowup(messageID: string, options: InteractionContent): Promise<Message<T>> {
+    async editFollowup(messageID: string, options: EditInteractionContent): Promise<Message<T>> {
         return this.client.rest.interactions.editFollowupMessage<T>(this.applicationID, this.token, messageID, options);
     }
 
@@ -193,7 +194,7 @@ export default class ModalSubmitInteraction<T extends AnyInteractionChannel | Un
      * Edit the original interaction response.
      * @param options The options for editing the original message.
      */
-    async editOriginal(options: InteractionContent): Promise<Message<T>> {
+    async editOriginal(options: EditInteractionContent): Promise<Message<T>> {
         return this.client.rest.interactions.editOriginalMessage<T>(this.applicationID, this.token, options);
     }
 

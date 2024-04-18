@@ -1,5 +1,5 @@
 /** @module REST/Interactions */
-import type { InteractionContent, InteractionResponse } from "../types/interactions";
+import type { EditInteractionContent, InteractionContent, InteractionResponse } from "../types/interactions";
 import type { ExecuteWebhookWaitOptions } from "../types/webhooks";
 import * as Routes from "../util/Routes";
 import { InteractionResponseTypes } from "../Constants";
@@ -117,7 +117,7 @@ export default class Interactions {
      * @param options The options for editing the followup message.
      * @caching This method **does not** cache its result.
      */
-    async editFollowupMessage<T extends AnyTextableChannel | Uncached>(applicationID: string, interactionToken: string, messageID: string, options: InteractionContent): Promise<Message<T>> {
+    async editFollowupMessage<T extends AnyTextableChannel | Uncached>(applicationID: string, interactionToken: string, messageID: string, options: EditInteractionContent): Promise<Message<T>> {
         return this.#manager.webhooks.editMessage<T>(applicationID, interactionToken, messageID, options);
     }
 
@@ -128,7 +128,7 @@ export default class Interactions {
      * @param options The options for editing the original message.
      * @caching This method **does not** cache its result.
      */
-    async editOriginalMessage<T extends AnyTextableChannel | Uncached>(applicationID: string, interactionToken: string, options: InteractionContent): Promise<Message<T>> {
+    async editOriginalMessage<T extends AnyTextableChannel | Uncached>(applicationID: string, interactionToken: string, options: EditInteractionContent): Promise<Message<T>> {
         return this.editFollowupMessage<T>(applicationID, interactionToken, "@original", options);
     }
 

@@ -481,7 +481,7 @@ export default class Channels {
      * @caches {@link TextableChannel#messages | TextableChannel#messages}<br>{@link ThreadChannel#messages | ThreadChannel#messages}<br>{@link PrivateChannel#messages | PrivateChannel#messages}
      */
     async editMessage<T extends AnyTextableChannel | Uncached = AnyTextableChannel | Uncached>(channelID: string, messageID: string, options: EditMessageOptions): Promise<Message<T>> {
-        const files = options.files;
+        const files = options.files ?? undefined;
         if (options.files) {
             delete options.files;
         }

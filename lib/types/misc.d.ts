@@ -11,3 +11,6 @@ export type ReverseMap<T extends Record<keyof T, keyof any>> = {
 };
 export type AnyClass<T, I, E extends Array<unknown>> = new(data: T, client: Client, ...extra: E) => I;
 export type WithRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
+export type Nullable<T> = {
+    [K in keyof T]: T[K] | null;
+};
