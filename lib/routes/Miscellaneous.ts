@@ -3,6 +3,7 @@ import * as Routes from "../util/Routes";
 import type RESTManager from "../rest/RESTManager";
 import type { RawSticker, RawStickerPack, Sticker, StickerPack } from "../types/guilds";
 import type { VoiceRegion } from "../types/voice";
+import type { RawRefreshAttachmentURLsResponse, RefreshAttachmentURLsResponse } from "../types/misc";
 
 /** Methods that don't fit anywhere else. Located at {@link Client#rest | Client#rest}{@link RESTManager#misc | .misc}. */
 export default class Miscellaneous {
@@ -52,5 +53,21 @@ export default class Miscellaneous {
             method: "GET",
             path:   Routes.VOICE_REGIONS
         });
+    }
+
+    /**
+     * Refresh expired attachment URLs.
+     * @param urls The CDN urls to refresh.
+     */
+    async refreshAttachmentURLs(urls: Array<string>): Promise<RefreshAttachmentURLsResponse> {
+        return this.#manager.authRequest<RawRefreshAttachmentURLsResponse>({
+            method: "POST",
+            path:   Routes.REFRESH_ATTACHMENT_URLS,
+            json:   {
+                attachment_urls: urls
+            }
+        }).then(data => ({
+            refreshedURLs: data.refreshed_urls
+        }));
     }
 }

@@ -139,3 +139,4 @@ export const STICKER_PACKS             = "/sticker-packs" as const;
 export const INVITE                    = (code: string) => `/invites/${code}` as const;
 export const STAGE_INSTANCES           = "/stage-instances" as const;
 export const STAGE_INSTANCE            = (channelID: string) => `/stage-instances/${channelID}` as const;
+export const REFRESH_ATTACHMENT_URLS   = "/attachments/refresh-urls" as const;

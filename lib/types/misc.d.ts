@@ -14,3 +14,15 @@ export type WithRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K
 export type Nullable<T> = {
     [K in keyof T]: T[K] | null;
 };
+
+export interface RawRefreshAttachmentURLsResponse {
+    refreshed_urls: Array<RefreshedAttachment>;
+}
+export interface RefreshAttachmentURLsResponse {
+    refreshedURLs: Array<RefreshedAttachment>;
+}
+
+export interface RefreshedAttachment {
+    original: string;
+    refreshed: string;
+}
