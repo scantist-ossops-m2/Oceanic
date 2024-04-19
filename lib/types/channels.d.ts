@@ -309,11 +309,8 @@ export interface CreateMessageOptions {
     /** Reply to a message. */
     messageReference?: MessageReference;
     /**
-     * A poll to send.
-     * @note As of [3/22/24](https://github.com/discord/discord-api-docs/pull/6746):
-     * * content, components, and many other fields cannot be sent alongside a poll.
-     * * * This means we cannot set `allowedMentions`. If in the future `content` can be sent alongside a poll, allowedMentions will not be set automatically, and must be set manually.
-     * * Messages with a poll cannot be edited.
+     * A poll to send. Messages with a poll cannot be edited.
+     * @note As of [4/18/24](https://github.com/discord/discord-api-docs/pull/6746#issuecomment-2064810908), `attachments` cannot be sent with polls.
      */
     poll?: MessagePollOptions;
     /** The IDs of up to 3 stickers from the current guild to send. */

@@ -129,12 +129,12 @@ export default class Webhooks {
      * @caching This method **does not** cache its result.
      */
     async editMessage<T extends AnyTextableChannel | Uncached>(webhookID: string, token: string, messageID: string, options: EditWebhookMessageOptions): Promise<Message<T>> {
-        const files = options.files;
+        const files = options.files ?? undefined;
         if (options.files) {
             delete options.files;
         }
         const query = new URLSearchParams();
-        if (options.threadID !== undefined) {
+        if (options.threadID) {
             query.set("thread_id", options.threadID);
         }
         return this.#manager.authRequest<RawMessage>({
@@ -205,6 +205,7 @@ export default class Webhooks {
                 content:          options.content,
                 embeds:           options.embeds ? this.#manager.client.util.embedsToRaw(options.embeds) : undefined,
                 flags:            options.flags,
+                poll:             options.poll,
                 thread_name:      options.threadName,
                 tts:              options.tts,
                 username:         options.username

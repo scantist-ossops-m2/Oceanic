@@ -2,6 +2,7 @@
 import type { CreateMessageOptions, RawChannel } from "./channels";
 import type { RawGuild } from "./guilds";
 import type { RawUser } from "./users";
+import type { Nullable } from "./misc";
 import type { WebhookTypes } from "../Constants";
 
 export interface RawWebhook {

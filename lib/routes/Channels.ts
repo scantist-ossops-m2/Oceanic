@@ -178,10 +178,7 @@ export default class Channels {
             method: "POST",
             path:   Routes.CHANNEL_MESSAGES(channelID),
             json:   {
-                // HACK: currently, allowed_mentions cannot be sent along with a poll. Due to how this previously worked, allowed mentions was ALWAYS sent.
-                // We check if poll is not present (or if allowedMentions IS present, for future proofing), and don't send allowed_mentions
-                // ^ If fixed make sure to remove the note from the "poll" property in the CreateMessageOptions interface
-                allowed_mentions:  options.poll === undefined || options.allowedMentions ? this.#manager.client.util.formatAllowedMentions(options.allowedMentions) : undefined,
+                allowed_mentions:  this.#manager.client.util.formatAllowedMentions(options.allowedMentions),
                 attachments:       options.attachments,
                 components:        options.components ? this.#manager.client.util.componentsToRaw(options.components) : undefined,
                 content:           options.content,
