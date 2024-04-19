@@ -134,7 +134,7 @@ export interface RawApplicationCommandOption {
 export interface CombinedApplicationCommandOption {
     autocomplete?: boolean;
     channelTypes?: Array<ImplementedChannels>;
-    choices?: Array<ApplicationCommandOptionsChoices>;
+    choices?: Array<ApplicationCommandOptionsChoice<ApplicationCommandOptionsTypesWithChoices>>;
     description: string;
     descriptionLocalizations?: LocaleMap | null;
     maxLength?: number;
@@ -151,7 +151,7 @@ export interface CombinedApplicationCommandOption {
 export interface RawApplicationCommandOptionChoice {
     name: string;
     name_localizations?: LocaleMap | null;
-    value: string;
+    value: string | number;
 }
 
 export type AnyApplicationCommand = ChatInputApplicationCommand | UserApplicationCommand | MessageApplicationCommand;

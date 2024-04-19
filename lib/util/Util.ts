@@ -476,9 +476,13 @@ export default class Util {
     optionToRaw(option: ApplicationCommandOptions): RawApplicationCommandOption {
         const opt = option as CombinedApplicationCommandOption;
         return {
-            autocomplete:              opt.autocomplete,
-            channel_types:             opt.channelTypes,
-            choices:                   opt.choices,
+            autocomplete:  opt.autocomplete,
+            channel_types: opt.channelTypes,
+            choices:       opt.choices?.map(choice => ({
+                name:               choice.name,
+                name_localizations: choice.nameLocalizations,
+                value:              choice.value
+            })),
             description:               opt.description,
             description_localizations: opt.descriptionLocalizations,
             max_length:                opt.maxLength,
@@ -490,7 +494,7 @@ export default class Util {
             options:                   opt.options?.map(o => this.optionToRaw(o as ApplicationCommandOptions)),
             required:                  opt.required,
             type:                      opt.type
-        } as RawApplicationCommandOption;
+        } satisfies RawApplicationCommandOption as RawApplicationCommandOption;
     }
 
     /** @internal */
