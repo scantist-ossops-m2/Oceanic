@@ -1326,7 +1326,7 @@ export default class Shard extends TypedEmitter<ShardEvents> {
         }
     }
 
-    private onWSClose(code: number, r: Buffer): void {
+    private async onWSClose(code: number, r: Buffer): Promise<void> {
         const reason = r.toString();
         let err: Error | undefined;
         let reconnect: boolean | undefined;
@@ -1410,7 +1410,13 @@ export default class Shard extends TypedEmitter<ShardEvents> {
                 }
 
                 case GatewayCloseCodes.DISALLOWED_INTENTS: {
-                    err = new GatewayError("Disallowed intents specified. Make sure any privileged intents you're trying to access have been enabled in the developer portal.", code);
+                    const disallowed = this.client.shards.options.lookupDisallowedIntents ? await this.client.util.detectMissingPrivilegedIntents() : [];
+                    let message = "Disallowed intents specified. Make sure any privileged intents you're trying to access have been enabled in the developer portal.";
+                    if (disallowed.length !== 0) {
+                        // application should always be present after the call to detectMissingPrivilegedIntents, but just in case it isn't, we don't want to swallow this disallowed intents error with a lib error
+                        message = `Disallowed intents specified. You are missing: ${disallowed.join(", ")}. Make sure they are enabled here: https://discord.com/developers/applications/${this.client["_application"]?.id || "unknown"}/bot`;
+                    }
+                    err = new GatewayError(message, code);
                     this.sessionID = null;
                     reconnect = false;
                     break;

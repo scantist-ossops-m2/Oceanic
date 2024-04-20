@@ -9,7 +9,11 @@ import {
     MEDIA_PROXY_SIZES,
     type ImageFormat,
     ThreadChannelTypes,
-    ChannelTypes
+    ChannelTypes,
+    Intents,
+    PrivilegedIntentMapping,
+    type ApplicationFlags,
+    type PrivilegedIntentNames
 } from "../Constants";
 import type {
     AllowedMentions,
@@ -310,6 +314,24 @@ export default class Util {
             type:        raw.type,
             user:        raw.user ? this.#client.users.update(raw.user) : undefined
         };
+    }
+
+    async detectMissingPrivilegedIntents(intents?: number): Promise<Array<PrivilegedIntentNames>> {
+        const application = this.#client["_application"] || await this.#client.rest.applications.getClient();
+        intents ??= this.#client.shards.options.intents;
+        this.#client["_application"] ??= application;
+
+        const missing: Array<PrivilegedIntentNames> = [];
+        const check = (intent: Intents, allowed: Array<ApplicationFlags>): void => {
+            if ((intents! & intent) === intent && !allowed.some(flag => (application.flags & flag) === flag)) {
+                missing.push(Intents[intent] as PrivilegedIntentNames);
+            }
+        };
+        for (const [intent, allowed] of PrivilegedIntentMapping) {
+            check(intent, allowed);
+        }
+
+        return missing;
     }
 
     embedsToParsed(embeds: Array<RawEmbed>): Array<Embed> {

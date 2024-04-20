@@ -1042,6 +1042,8 @@ export enum Intents {
 }
 
 export type IntentNames = keyof typeof Intents;
+export type PrivilegedIntentNames = "GUILD_MEMBERS" | "GUILD_PRESENCES" | "MESSAGE_CONTENT";
+// TODO: find a way to make the above not manual, if possible
 
 export const NonPrivilegedIntents = [
     Intents.GUILDS,
@@ -1071,6 +1073,12 @@ export const PrivilegedIntents = [
 ] as const;
 export const AllPrivilegedIntents = PrivilegedIntents.reduce((all, p) => all | p, 0);
 export const AllIntents = AllNonPrivilegedIntents | AllPrivilegedIntents;
+
+export const PrivilegedIntentMapping = [
+    [Intents.GUILD_PRESENCES, [ApplicationFlags.GATEWAY_PRESENCE, ApplicationFlags.GATEWAY_PRESENCE_LIMITED]],
+    [Intents.GUILD_MEMBERS, [ApplicationFlags.GATEWAY_GUILD_MEMBERS, ApplicationFlags.GATEWAY_GUILD_MEMBERS_LIMITED]],
+    [Intents.MESSAGE_CONTENT, [ApplicationFlags.GATEWAY_MESSAGE_CONTENT, ApplicationFlags.GATEWAY_MESSAGE_CONTENT_LIMITED]]
+] as Array<[intent: Intents, allowed: Array<ApplicationFlags>]>;
 
 export enum GatewayOPCodes {
     DISPATCH              = 0,

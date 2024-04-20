@@ -89,6 +89,11 @@ interface GatewayOptions {
      */
     lastShardID?: number;
     /**
+     * If upon recieving a disconnect for disallowed intents, we should request the application's flags and list the privileged intents that are missing in the error. This requires making a request to {@link REST/Applications.getCurrent | `/applications/@me`}.
+     * @defaultValue false
+     */
+    lookupDisallowedIntents?: boolean;
+    /**
      * The maximum number of attempts to reconnect.
      * @defaultValue Infinity
      */

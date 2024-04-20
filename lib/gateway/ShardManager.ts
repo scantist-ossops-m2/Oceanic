@@ -4,9 +4,10 @@ import type Client from "../Client";
 import {
     AllIntents,
     AllNonPrivilegedIntents,
-    ApplicationFlags,
+    type ApplicationFlags,
     GATEWAY_VERSION,
-    Intents
+    Intents,
+    PrivilegedIntentMapping
 } from "../Constants";
 import type { GatewayOptions, GetBotGatewayResponse, ShardManagerInstanceOptions } from "../types/gateway";
 import Collection from "../util/Collection";
@@ -52,14 +53,15 @@ export default class ShardManager extends Collection<number, Shard> {
                 gatewayURLIsResumeURL:    false,
                 timeBetweenShardConnects: 5000
             },
-            guildCreateTimeout:   options.guildCreateTimeout ?? 2000,
-            intents:              typeof options.intents === "number" ? options.intents : 0,
-            largeThreshold:       options.largeThreshold ?? 250,
-            lastShardID:          options.lastShardID ?? -1,
-            maxReconnectAttempts: options.maxReconnectAttempts ?? Infinity,
-            maxResumeAttempts:    options.maxResumeAttempts ?? 10,
-            maxShards:            options.maxShards === "auto" || options.maxShards && options.maxShards < 1 ? -1 : options.maxShards ?? -1,
-            presence:			          {
+            guildCreateTimeout:      options.guildCreateTimeout ?? 2000,
+            intents:                 typeof options.intents === "number" ? options.intents : 0,
+            largeThreshold:          options.largeThreshold ?? 250,
+            lastShardID:             options.lastShardID ?? -1,
+            lookupDisallowedIntents: options.lookupDisallowedIntents ?? false,
+            maxReconnectAttempts:    options.maxReconnectAttempts ?? Infinity,
+            maxResumeAttempts:       options.maxResumeAttempts ?? 10,
+            maxShards:               options.maxShards === "auto" || options.maxShards && options.maxShards < 1 ? -1 : options.maxShards ?? -1,
+            presence:			             {
                 activities: options.presence?.activities ?? [],
                 afk:		      options.presence?.afk ?? false,
                 status:		   options.presence?.status ?? "online"
@@ -174,14 +176,9 @@ export default class ShardManager extends Collection<number, Shard> {
                 url += "/";
             }
         }
-        const privilegedIntentMapping = [
-            [Intents.GUILD_PRESENCES, [ApplicationFlags.GATEWAY_PRESENCE, ApplicationFlags.GATEWAY_PRESENCE_LIMITED]],
-            [Intents.GUILD_MEMBERS, [ApplicationFlags.GATEWAY_GUILD_MEMBERS, ApplicationFlags.GATEWAY_GUILD_MEMBERS_LIMITED]],
-            [Intents.MESSAGE_CONTENT, [ApplicationFlags.GATEWAY_MESSAGE_CONTENT, ApplicationFlags.GATEWAY_MESSAGE_CONTENT_LIMITED]]
-        ] as Array<[intent: Intents, allowed: Array<ApplicationFlags>]>;
 
         /* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
-        if (this.options.removeDisallowedIntents && privilegedIntentMapping.some(([intent]) => (this.options.intents & intent) === intent)) {
+        if (this.options.removeDisallowedIntents && PrivilegedIntentMapping.some(([intent]) => (this.options.intents & intent) === intent)) {
             const { flags } = await this.#client.rest.applications.getCurrent();
             const check = (intent: Intents, allowed: Array<ApplicationFlags>): void => {
                 if ((this.options.intents & intent) === intent && !allowed.some(flag => (flags & flag) === flag)) {
@@ -189,7 +186,7 @@ export default class ShardManager extends Collection<number, Shard> {
                     this.options.intents &= ~intent;
                 }
             };
-            for (const [intent, allowed] of privilegedIntentMapping) {
+            for (const [intent, allowed] of PrivilegedIntentMapping) {
                 check(intent, allowed);
             }
         }
