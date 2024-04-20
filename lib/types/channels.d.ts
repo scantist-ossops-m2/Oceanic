@@ -302,12 +302,16 @@ export interface CreateMessageOptions {
     content?: string;
     /** An array of [embeds](https://discord.com/developers/docs/resources/channel#embed-object) to send. `snake_case` keys should be converted to `camelCase`, or passed through {@link Util.rawEmbeds | Util#rawEmbeds}. */
     embeds?: Array<EmbedOptions>;
+    /** If Discord should enforce the unique nonce. This prevents duplicate messages being sent within a few minutes. */
+    enforceNonce?: boolean;
     /** The files to send. */
     files?: Array<File>;
     /** The [flags](https://discord.com/developers/docs/resources/channel#message-object-message-flags) to send with the message. */
     flags?: number;
     /** Reply to a message. */
     messageReference?: MessageReference;
+    /** A unique number or string used to dedupe this message. `enforceNonce` must be set to true for Discord to dedupe message sends. */
+    nonce?: string | number;
     /**
      * A poll to send. Messages with a poll cannot be edited.
      * @note As of [4/18/24](https://github.com/discord/discord-api-docs/pull/6746#issuecomment-2064810908), `attachments` cannot be sent with polls.

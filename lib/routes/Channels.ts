@@ -183,6 +183,7 @@ export default class Channels {
                 components:        options.components ? this.#manager.client.util.componentsToRaw(options.components) : undefined,
                 content:           options.content,
                 embeds:            options.embeds ? this.#manager.client.util.embedsToRaw(options.embeds) : undefined,
+                enforce_nonce:     options.enforceNonce,
                 flags:             options.flags,
                 sticker_ids:       options.stickerIDs,
                 message_reference: options.messageReference ? {
@@ -191,7 +192,8 @@ export default class Channels {
                     guild_id:           options.messageReference.guildID,
                     message_id:         options.messageReference.messageID
                 } : undefined,
-                poll: options.poll ? {
+                nonce: options.nonce,
+                poll:  options.poll ? {
                     allow_multiselect: options.poll.allowMultiselect,
                     answers:           options.poll.answers.map(a => ({
                         poll_media: a.pollMedia
