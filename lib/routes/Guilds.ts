@@ -180,7 +180,7 @@ export default class Guilds {
             path:   Routes.GUILD_BULK_BAN(guildID),
             json:   {
                 delete_message_seconds: options.deleteMessageSeconds,
-                user_ids:              options.userIDs
+                user_ids:               options.userIDs
             },
             reason
         }).then(data => ({
