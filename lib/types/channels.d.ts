@@ -776,7 +776,7 @@ export interface RawMessageInteractionMetadata {
     original_response_message_id?: string;
     triggering_interaction_metadata?: Omit<RawMessageInteractionMetadata, "triggering_interaction_metadata">;
     type: InteractionTypes;
-    user_id: string;
+    user: RawUser;
 }
 
 export interface MessageInteractionMetadata {
@@ -792,7 +792,7 @@ export interface MessageInteractionMetadata {
     /** Metadata for the interaction that was used to open the modal, present only on modal submit interactions. */
     triggeringInteractionMetadata?: Omit<MessageInteractionMetadata, "triggeringInteractionMetadata" | "name">;
     type: InteractionTypes;
-    user: User | Uncached;
+    user: User;
 }
 
 

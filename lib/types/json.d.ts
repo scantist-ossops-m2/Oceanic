@@ -45,7 +45,6 @@ import type {
     PollAnswer
 } from "./channels";
 import type { ScheduledEventEntityMetadata } from "./scheduled-events";
-import type { Uncached } from "./shared";
 import type {
     ApplicationCommandTypes,
     AutoModerationEventTypes,
@@ -454,10 +453,10 @@ export interface JSONMessage extends JSONBase {
             interactedMessageID?: string;
             originalResponseMessageID?: string;
             type: InteractionTypes;
-            user: JSONUser | Uncached;
+            user: JSONUser;
         };
         type: InteractionTypes;
-        user: JSONUser | Uncached;
+        user: JSONUser;
     };
     mentionChannels?: Array<ChannelMention>;
     mentions: {

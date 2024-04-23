@@ -250,14 +250,14 @@ export default class Message<T extends AnyTextableChannel | Uncached = AnyTextab
                 name:                          data.interaction_metadata.name,
                 originalResponseMessageID:     data.interaction_metadata.original_response_message_id,
                 type:                          data.interaction_metadata.type,
-                user:                          this.client.users.get(data.interaction_metadata.user_id) || { id: data.interaction_metadata.user_id },
+                user:                          this.client.users.update(data.interaction_metadata.user),
                 triggeringInteractionMetadata: data.interaction_metadata.triggering_interaction_metadata === undefined ? undefined : {
                     authorizingIntegrationOwners: data.interaction_metadata.triggering_interaction_metadata.authorizing_integration_owners,
                     id:                           data.interaction_metadata.triggering_interaction_metadata.id,
                     interactedMessageID:          data.interaction_metadata.triggering_interaction_metadata.interacted_message_id,
                     originalResponseMessageID:    data.interaction_metadata.triggering_interaction_metadata.original_response_message_id,
                     type:                         data.interaction_metadata.triggering_interaction_metadata.type,
-                    user:                         this.client.users.get(data.interaction_metadata.triggering_interaction_metadata.user_id) || { id: data.interaction_metadata.triggering_interaction_metadata.user_id }
+                    user:                         this.client.users.update(data.interaction_metadata.triggering_interaction_metadata.user)
                 }
             };
         }
