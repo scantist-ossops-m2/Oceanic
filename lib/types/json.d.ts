@@ -76,7 +76,13 @@ import type {
     EntitlementTypes,
     ApplicationIntegrationTypes,
     InteractionContextTypes,
-    PollLayoutType
+    PollLayoutType,
+    ApplicationDiscoverabilityState,
+    ApplicationExplicitContentFilterLevel,
+    ApplicationMonetizationState,
+    RPCApplicationState,
+    StoreApplicationState,
+    ApplicationVerificationState
 } from "../Constants";
 
 export interface JSONAnnouncementChannel extends JSONThreadableChannel {
@@ -89,25 +95,42 @@ export interface JSONAnnouncementThreadChannel extends JSONThreadChannel {
 }
 export interface JSONApplication extends JSONClientApplication {
     approximateGuildCount: number;
+    botPublic?: boolean;
+    botRequireCodeGrant?: boolean;
     coverImage: string | null;
     customInstallURL?: string;
     description: string;
+    discoverabilityState?: ApplicationDiscoverabilityState;
+    discoveryEligibilityFlags?: number;
+    explicitContentFilter?: ApplicationExplicitContentFilterLevel;
     guild: JSONOAuthGuild | null;
     guildID: string | null;
+    hook: boolean;
     icon: string | null;
     installParams?: InstallParams;
     integrationTypes: Array<ApplicationIntegrationTypes>;
-    integrationTypesConfig?: IntegrationTypesConfig;
+    integrationTypesConfig: IntegrationTypesConfig;
     interactionsEndpointURL: string | null;
+    interactionsEventTypes?: Array<string>;
+    interactionsVersion?: number;
+    isMonetized: boolean;
+    monetizationEligibilityFlags?: number;
+    monetizationState?: ApplicationMonetizationState;
     name: string;
+    owner: JSONUser | null;
     primarySKUID?: string;
     privacyPolicyURL?: string;
+    redirectURIs: Array<string>;
     roleConnectionsVerificationURL: string | null;
+    rpcApplicationState?: RPCApplicationState;
     rpcOrigins: Array<string>;
     slug?: string;
-    tags?: Array<string>;
+    storeApplicationState?: StoreApplicationState;
+    tags: Array<string>;
+    team: JSONTeam | null;
     termsOfServiceURL?: string;
     type: number | null;
+    verificationState?: ApplicationVerificationState;
     verifyKey: string;
 }
 export interface JSONApplicationCommand extends JSONBase {

@@ -1256,6 +1256,89 @@ export enum PollLayoutType {
     DEFAULT = 1,
 }
 
+export enum ApplicationMonetizationState {
+    NONE    = 1,
+    ENABLED = 2,
+    BLOCKED = 3,
+}
+
+export enum ApplicationDiscoverabilityState {
+    INELIGIBLE       = 1,
+    NOT_DISCOVERABLE = 2,
+    DISCOVERABLE     = 3,
+    FEATURABLE       = 4,
+    BLOCKED          = 5,
+}
+
+export enum ApplicationDiscoveryEligibilityFlags {
+    VERIFIED                = 1 << 0,
+    TAG                     = 1 << 1,
+    DESCRIPTION             = 1 << 2,
+    TERMS_OF_SERVICE        = 1 << 3,
+    PRIVACY_POLICY          = 1 << 4,
+    INSTALL_PARAMS          = 1 << 5,
+    SAFE_NAME               = 1 << 6,
+    SAFE_DESCRIPTION        = 1 << 7,
+    APPROVED_COMMANDS       = 1 << 8,
+    SUPPORT_GUILD           = 1 << 9,
+    SAFE_COMMANDS           = 1 << 10,
+    MFA                     = 1 << 11,
+    SAFE_DIRECTORY_OVERVIEW = 1 << 12,
+    SUPPORTED_LOCALES       = 1 << 13,
+    SAFE_SHORT_DESCRIPTION  = 1 << 14,
+    SAFE_ROLE_CONNECTIONS   = 1 << 15,
+    ELIGIBLE                = 1 << 16,
+}
+
+export enum ApplicationExplicitContentFilterLevel {
+    DISABLED = 0,
+    ENABLED  = 1,
+}
+
+export enum ApplicationInteractionsVersion {
+    VERSION_1 = 1,
+    VERSION_2 = 2,
+}
+
+export enum ApplicationMonetizationEligibilityFlags {
+    VERIFIED                    = 1 << 0,
+    HAS_TEAM                    = 1 << 1,
+    APPROVED_COMMANDS           = 1 << 2,
+    TERMS_OF_SERVICE            = 1 << 3,
+    PRIVACY_POLICY              = 1 << 4,
+    SAFE_NAME                   = 1 << 5,
+    SAFE_DESCRIPTION            = 1 << 6,
+    SAFE_ROLE_CONNECTIONS       = 1 << 7,
+    NOT_QUARANTINED             = 1 << 9,
+    TEAM_MEMBERS_EMAIL_VERIFIED = 1 << 15,
+    TEAM_MEMBERS_MFA_ENABLED    = 1 << 16,
+    NO_BLOCKING_ISSUES          = 1 << 17,
+    VALID_PAYOUT_STATUS         = 1 << 18,
+}
+
+export enum RPCApplicationState {
+    DISABLED    = 0,
+    UNSUBMITTED = 1,
+    SUBMITTED   = 2,
+    APPROVED    = 3,
+    REJECTED    = 4,
+}
+
+export enum StoreApplicationState {
+    NONE      = 1,
+    PAID      = 2,
+    SUBMITTED = 3,
+    APPROVED  = 4,
+    REJECTED  = 5,
+}
+
+export enum ApplicationVerificationState {
+    INELIGIBLE  = 1,
+    UNSUBMITTED = 2,
+    SUBMITTED   = 3,
+    SUCCEEDED   = 4,
+}
+
 /* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 // entries are intentionally not aligned
 /** The error codes that can be received. See [Discord's Documentation](https://discord.com/developers/docs/topics/opcodes-and-status-codes#json). */

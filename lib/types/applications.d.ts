@@ -6,12 +6,18 @@ import type {
     ApplicationCommandOptionTypes,
     ApplicationCommandPermissionTypes,
     ApplicationCommandTypes,
+    ApplicationDiscoverabilityState,
+    ApplicationExplicitContentFilterLevel,
     ApplicationIntegrationTypes,
+    ApplicationMonetizationState,
+    ApplicationVerificationState,
     EntitlementOwnerTypes,
     EntitlementTypes,
     InteractionContextTypes,
+    RPCApplicationState,
     SKUAccessTypes,
     SKUTypes,
+    StoreApplicationState,
     TeamMembershipState
 } from "../Constants";
 import type ApplicationCommand from "../structures/ApplicationCommand";
@@ -25,6 +31,9 @@ export interface RawApplication {
     cover_image?: string;
     custom_install_url?: string;
     description: string;
+    discoverability_state?: ApplicationDiscoverabilityState;
+    discovery_eligibility_flags?: number;
+    explicit_content_filter?: ApplicationExplicitContentFilterLevel;
     flags?: number;
     guild?: RawOAuthGuild;
     guild_id?: string;
@@ -35,24 +44,32 @@ export interface RawApplication {
     integration_types?: Array<ApplicationIntegrationTypes>;
     integration_types_config?: Partial<Record<`${ApplicationIntegrationTypes}`, RawApplicationIntegrationConfig>>;
     interactions_endpoint_url?: string | null;
+    interactions_event_types?: Array<string>;
+    interactions_version?: number;
+    is_monetized: boolean;
+    monetization_eligibility_flags?: number;
+    monetization_state?: ApplicationMonetizationState;
     name: string;
     owner?: RawUser;
     primary_sku_id?: string;
     privacy_policy_url?: string;
     redirect_uris?: Array<string>;
     role_connections_verification_url?: string | null;
+    rpc_application_state?: RPCApplicationState;
     rpc_origins?: Array<string>;
     slug?: string;
+    store_application_state?: StoreApplicationState;
     tags?: Array<string>;
     team?: RawTeam | null;
     terms_of_service_url?: string;
     type: number | null;
+    verification_state?: ApplicationVerificationState;
     verify_key: string;
 }
 
 export interface RawPartialApplication extends Pick<RawApplication, "id" | "name" | "icon" | "description">, Partial<Pick<RawApplication, "bot_public" | "bot_require_code_grant" | "verify_key">> {}
 export interface RESTOAuthApplication extends WithRequired<RawApplication, "cover_image" | "flags" | "owner" | "rpc_origins" | "install_params" | "integration_types" | "integration_types_config"> {}
-export interface RESTApplication extends WithRequired<RawApplication, "cover_image" | "flags" | "owner" | "rpc_origins" | "install_params" | "integration_types" | "integration_types_config"> {}
+export interface RESTApplication extends WithRequired<RawApplication, "flags" | "rpc_origins" | "install_params" | "integration_types" | "integration_types_config"> {}
 export interface RawClientApplication extends Required<Pick<RawApplication, "id" | "flags">> {}
 export type TeamMemberRoleTypes = "admin" | "developer" | "read-only";
 
