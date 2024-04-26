@@ -17,6 +17,7 @@ import Member from "../structures/Member";
 import OAuthGuild from "../structures/OAuthGuild";
 import ExtendedUser from "../structures/ExtendedUser";
 import type {
+    AddMemberOptions,
     RESTOAuthApplication,
     RawOAuthUser,
     RawRoleConnection,
@@ -63,6 +64,10 @@ export default class OAuthHelper {
             params.push(`state=${options.state}`);
         }
         return `${BASE_URL}${Routes.OAUTH_AUTHORIZE}?${params.join("&")}`;
+    }
+
+    async addGuildMember(guildID: string, userID: string, options?: Omit<AddMemberOptions, "accessToken">) {
+        return this.#manager.guilds.addMember(guildID, userID, { accessToken: this.#token, ...options });
     }
 
     /**

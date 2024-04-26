@@ -23,6 +23,7 @@ import { DependencyError, UncachedError } from "./util/Errors";
 /* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-redundant-type-constituents, @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-assignment, unicorn/prefer-module */
 // @ts-ignore
 import type { DiscordGatewayAdapterLibraryMethods, VoiceConnection } from "@discordjs/voice";
+import type OAuthHelper from "./rest/OAuthHelper";
 
 // @ts-ignore
 let DiscordJSVoice: typeof import("@discordjs/voice") | undefined;
@@ -214,6 +215,14 @@ export default class Client<E extends ClientEvents = ClientEvents> extends Typed
             return this.guilds.get(this.threadGuildMap[channelID])?.threads.get(channelID) as T;
         }
         return (this.privateChannels.get(channelID) ?? this.groupChannels.get(channelID)) as T;
+    }
+
+    /**
+     * Get a helper instance for OAuth that can be used with a specific bearer token.
+     * @param accessToken The access token.
+     */
+    getOAuthHelper(accessToken: string): OAuthHelper {
+        return this.rest.oauth.getHelper(accessToken);
     }
 
     /**
