@@ -194,9 +194,12 @@ export default class OAuth {
         }).then(data => new ExtendedUser(data, this.#manager.client));
     }
 
-    /** Get a helper instance that can be used with a specific bearer token. */
-    getHelper(token: string): OAuthHelper {
-        return new OAuthHelper(this.#manager, token);
+    /**
+     * Get a helper instance that can be used with a specific access token.
+     * @param accessToken The access token. Must be prefixed with `Bearer `.
+     */
+    getHelper(accessToken: string): OAuthHelper {
+        return new OAuthHelper(this.#manager, accessToken);
     }
 
     /**

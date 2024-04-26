@@ -218,8 +218,8 @@ export default class Client<E extends ClientEvents = ClientEvents> extends Typed
     }
 
     /**
-     * Get a helper instance for OAuth that can be used with a specific bearer token.
-     * @param accessToken The access token.
+     * Get a helper instance that can be used with a specific access token.
+     * @param accessToken The access token. Must be prefixed with `Bearer `.
      */
     getOAuthHelper(accessToken: string): OAuthHelper {
         return this.rest.oauth.getHelper(accessToken);

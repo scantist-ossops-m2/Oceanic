@@ -67,7 +67,7 @@ export default class OAuthHelper {
     }
 
     async addGuildMember(guildID: string, userID: string, options?: Omit<AddMemberOptions, "accessToken">): Promise<Member | undefined> {
-        return this.#manager.guilds.addMember(guildID, userID, { accessToken: this.#token, ...options });
+        return this.#manager.guilds.addMember(guildID, userID, { accessToken: this.#token.split(" ").slice(1).join(" "), ...options });
     }
 
     /**
