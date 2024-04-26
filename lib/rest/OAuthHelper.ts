@@ -66,7 +66,7 @@ export default class OAuthHelper {
         return `${BASE_URL}${Routes.OAUTH_AUTHORIZE}?${params.join("&")}`;
     }
 
-    async addGuildMember(guildID: string, userID: string, options?: Omit<AddMemberOptions, "accessToken">) {
+    async addGuildMember(guildID: string, userID: string, options?: Omit<AddMemberOptions, "accessToken">): Promise<Member | undefined> {
         return this.#manager.guilds.addMember(guildID, userID, { accessToken: this.#token, ...options });
     }
 

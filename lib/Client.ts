@@ -22,8 +22,8 @@ import { DependencyError, UncachedError } from "./util/Errors";
 
 /* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-redundant-type-constituents, @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-assignment, unicorn/prefer-module */
 // @ts-ignore
-import type { DiscordGatewayAdapterLibraryMethods, VoiceConnection } from "@discordjs/voice";
 import type OAuthHelper from "./rest/OAuthHelper";
+import type { DiscordGatewayAdapterLibraryMethods, VoiceConnection } from "@discordjs/voice";
 
 // @ts-ignore
 let DiscordJSVoice: typeof import("@discordjs/voice") | undefined;
