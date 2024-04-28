@@ -757,11 +757,7 @@ export default class Channels {
                         [chosenOption]: it.lastMessage
                     });
 
-                    if (messages.length < 100 || it.limit <= 100) {
-                        yield messages;
-                        break loop;
-                    }
-
+                    const originalCount = messages.length;
                     it.limit -= messages.length;
 
                     for (const message of Array.from(messages)) {
@@ -779,6 +775,10 @@ export default class Channels {
 
                     it.lastMessage = messages.at(-1)?.id;
                     yield messages;
+
+                    if (originalCount < 100 || it.limit <= 0) {
+                        break loop;
+                    }
                 }
             }
         };
