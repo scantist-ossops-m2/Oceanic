@@ -6,7 +6,7 @@ import type { RawScheduledEvent } from "./scheduled-events";
 import type { RawUser } from "./users";
 import type { RawWebhook } from "./webhooks";
 import type { RawApplicationCommand } from "./applications";
-import type { AuditLogActionTypes } from "../Constants";
+import type { AuditLogActionTypes, OverwriteTypes } from "../Constants";
 import type GuildScheduledEvent from "../structures/GuildScheduledEvent";
 import type AnnouncementThreadChannel from "../structures/AnnouncementThreadChannel";
 import type PublicThreadChannel from "../structures/PublicThreadChannel";
@@ -91,13 +91,14 @@ export interface AuditLogEntryOptions {
     /** The status set in a voice channel - valid for: `VOICE_CHANNEL_STATUS_CREATE` */
     status?: string;
     /** Type of overwritten entity - role ("0") or member ("1") - valid for: `CHANNEL_OVERWRITE_CREATE`, `CHANNEL_OVERWRITE_UPDATE`, `CHANNEL_OVERWRITE_DELETE` */
-    type?: "0" | "1";
+    type?: `${OverwriteTypes}`;
 }
 
 export interface RawAuditLogIntegration extends Pick<RawIntegration, "id" | "name" | "type" | "account"> {
     application_id?: string;
 }
 
+export type AuditLogChange = StandardAuditLogChange | RoleAuditLogChange;
 export interface StandardAuditLogChange {
     key: string;
     new_value?: unknown;

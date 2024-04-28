@@ -12,6 +12,8 @@ export default class Role extends Base {
     private _cachedGuild?: Guild;
     /** The color of this role. */
     color: number;
+    /** The {@link Constants~RoleFlags | flags } for this role. */
+    flags: number;
     /** The id of the guild this role is in. */
     guildID: string;
     /** If this role is hoisted. */
@@ -35,6 +37,7 @@ export default class Role extends Base {
     constructor(data: RawRole, client: Client, guildID: string) {
         super(data.id, client);
         this.color = data.color;
+        this.flags = data.flags;
         this.guildID = guildID;
         this.hoist = !!data.hoist;
         this.icon = null;
@@ -48,6 +51,9 @@ export default class Role extends Base {
     }
 
     protected override update(data: Partial<RawRole>): void {
+        if (data.flags !== undefined) {
+            this.flags = data.flags;
+        }
         if (data.color !== undefined) {
             this.color = data.color;
         }

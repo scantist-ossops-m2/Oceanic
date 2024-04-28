@@ -516,7 +516,7 @@ export namespace Permissions {
 }
 
 // bigints can't be used as object keys, so we need to convert them to strings
-const PermissionValueToName = Object.fromEntries(Object.entries(Permissions).map(([k, v]) => [String(v), k] as [string, string])) as ReverseMap<StringMap<typeof Permissions>>;
+export const PermissionValueToName = Object.fromEntries(Object.entries(Permissions).map(([k, v]) => [String(v), k] as [string, string])) as ReverseMap<StringMap<typeof Permissions>>;
 
 export const AllPermissions = Object.values(Permissions).reduce((a, b) => a | b, 0n);
 export const TextPermissions = [
@@ -1337,6 +1337,10 @@ export enum ApplicationVerificationState {
     UNSUBMITTED = 2,
     SUBMITTED   = 3,
     SUCCEEDED   = 4,
+}
+
+export enum RoleFlags {
+    IN_PROMPT = 1 << 0,
 }
 
 /* eslint-disable @typescript-eslint/no-duplicate-enum-values */

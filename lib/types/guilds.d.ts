@@ -104,6 +104,7 @@ export interface RawInviteGuild extends Pick<RawGuild, "id" | "name" | "splash" 
 
 export interface RawRole {
     color: number;
+    flags: number;
     hoist: boolean;
     icon?: string | null;
     id: string;
