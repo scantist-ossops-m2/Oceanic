@@ -36,6 +36,7 @@ try {
 export default class Client<E extends ClientEvents = ClientEvents> extends TypedEmitter<E> {
     private _application?: ClientApplication;
     private _user?: ExtendedUser;
+    /** A key-value mapping of channel IDs to guild IDs. In most cases, every channel listed here should be cached in their respective guild's {@link Guild#channels | channels collection}. */
     channelGuildMap: Record<string, string>;
     groupChannels: TypedCollection<RawGroupChannel, GroupChannel>;
     guildShardMap: Record<string, number>;
@@ -46,6 +47,7 @@ export default class Client<E extends ClientEvents = ClientEvents> extends Typed
     rest: RESTManager;
     shards: ShardManager;
     startTime = 0;
+    /** A key-value mapping of thread IDs to guild IDs. In most cases, every channel listed here should be cached in their respective guild's {@link Guild#threads | threads collection}. */
     threadGuildMap: Record<string, string>;
     unavailableGuilds: TypedCollection<RawUnavailableGuild, UnavailableGuild>;
     users: TypedCollection<RawUser, User>;
