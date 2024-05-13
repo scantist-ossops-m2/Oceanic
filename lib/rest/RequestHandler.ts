@@ -30,6 +30,7 @@ export default class RequestHandler {
             agent:                      options.agent,
             baseURL:                    options.baseURL ?? API_URL,
             disableLatencyCompensation: !!options.disableLatencyCompensation,
+            followRedirects:            !!options.followRedirects,
             host:                       options.host ?? (options.baseURL ? new URL(options.baseURL).host : new URL(API_URL).host),
             latencyThreshold:           options.latencyThreshold ?? 30000,
             ratelimiterOffset:          options.ratelimiterOffset ?? 0,
@@ -167,7 +168,8 @@ export default class RequestHandler {
                         headers,
                         body:       reqBody,
                         dispatcher: this.options.agent || undefined,
-                        signal:     controller.signal
+                        signal:     controller.signal,
+                        redirect:   this.options.followRedirects ? "follow" : "manual"
                     });
                     if (timeout) {
                         clearTimeout(timeout);
