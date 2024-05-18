@@ -10,7 +10,7 @@ function encode(strings: TemplateStringsArray, ...args: Array<string | number>):
         if (args[i] !== undefined && args[i] !== null) {
             acc += Array.from(
                 String(args[i]),
-                char => SAFE_CHARACTERS.has(char) ? char : (decodeURIComponent(char) === char ? char : encodeURIComponent(char))
+                char => SAFE_CHARACTERS.has(char) ? char : (decodeURIComponent(char) === char ? encodeURIComponent(char) : char)
             ).join("");
         }
 
