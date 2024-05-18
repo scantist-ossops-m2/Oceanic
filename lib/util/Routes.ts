@@ -8,10 +8,10 @@ function encode(strings: TemplateStringsArray, ...args: Array<string | number>):
         acc += str;
 
         if (args[i] !== undefined && args[i] !== null) {
-            acc += String(args[i])
-                .split("")
-                .map(char => SAFE_CHARACTERS.has(char) ? char : encodeURIComponent(char))
-                .join("");
+            acc += Array.from(
+                String(args[i]),
+                char => SAFE_CHARACTERS.has(char) ? char : encodeURIComponent(char)
+            ).join("");
         }
 
         return acc;
