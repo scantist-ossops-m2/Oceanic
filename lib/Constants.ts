@@ -86,22 +86,24 @@ export enum UserFlags {
     EARLY_SUPPORTER            = 1 << 9,
     PSEUDO_TEAM_USER           = 1 << 10,
     INTERNAL_APPLICATION       = 1 << 11,
+    /** @deprecated */
     SYSTEM                     = 1 << 12,
     HAS_UNREAD_URGENT_MESSAGES = 1 << 13,
     BUG_HUNTER_LEVEL_2         = 1 << 14,
-
-    VERIFIED_BOT          = 1 << 16,
-    VERIFIED_DEVELOPER    = 1 << 17,
-    CERTIFIED_MODERATOR   = 1 << 18,
-    BOT_HTTP_INTERACTIONS = 1 << 19,
-    SPAMMER               = 1 << 20,
-
-    ACTIVE_DEVELOPER = 1 << 22,
+    UNDERAGE_DELETED           = 1 << 15,
+    VERIFIED_BOT               = 1 << 16,
+    VERIFIED_DEVELOPER         = 1 << 17,
+    CERTIFIED_MODERATOR        = 1 << 18,
+    BOT_HTTP_INTERACTIONS      = 1 << 19,
+    SPAMMER                    = 1 << 20,
+    DISABLE_PREMIUM            = 1 << 21,
+    ACTIVE_DEVELOPER           = 1 << 22,
 
     HIGH_GLOBAL_RATE_LIMIT       = 2 ** 33,
     DELETED                      = 2 ** 34,
     DISABLED_SUSPICIOUS_ACTIVITY = 2 ** 35,
     SELF_DELETED                 = 2 ** 36,
+    /** @deprecated */
     PREMIUM_DISCRIMINATOR        = 2 ** 37,
     USED_DESKTOP_CLIENT          = 2 ** 38,
     USED_WEB_CLIENT              = 2 ** 39,

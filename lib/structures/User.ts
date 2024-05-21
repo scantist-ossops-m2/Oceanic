@@ -3,6 +3,7 @@ import Base from "./Base";
 import type PrivateChannel from "./PrivateChannel";
 import type Entitlement from "./Entitlement";
 import type TestEntitlement from "./TestEntitlement";
+import Clan from "./Clan";
 import { EntitlementOwnerTypes, type ImageFormat } from "../Constants";
 import * as Routes from "../util/Routes";
 import type Client from "../Client";
@@ -23,6 +24,8 @@ export default class User extends Base {
     banner?: string | null;
     /** If this user is a bot. */
     bot: boolean;
+    /** The primary clan this user is in. */
+    clan: Clan | null;
     /** The 4 digits after this user's username, if they have not been migrated. If migrated, this will be a single "0". */
     discriminator: string;
     /** The user's display name, if set. */
@@ -37,6 +40,7 @@ export default class User extends Base {
         super(data.id, client);
         this.avatar = null;
         this.bot = !!data.bot;
+        this.clan = null;
         this.discriminator = data.discriminator;
         this.globalName = data.global_name;
         this.publicFlags = 0;
@@ -69,6 +73,9 @@ export default class User extends Base {
         }
         if (data.username !== undefined) {
             this.username = data.username;
+        }
+        if (data.clan !== undefined) {
+            this.clan = data.clan ? new Clan(data.clan, this.client) : null;
         }
     }
 

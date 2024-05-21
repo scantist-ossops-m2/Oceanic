@@ -123,6 +123,7 @@ export const EMBED_AVATAR                = (mod: number) => encode`/embed/avatar
 export const GUILD_AVATAR                = (guildID: string, userID: string, hash: string) => encode`/guilds/${guildID}/users/${userID}/avatars/${hash}`;
 export const GUILD_DISCOVERY_SPLASH      = (guildID: string, hash: string) => encode`/guilds/${guildID}/splashes/${hash}`;
 export const GUILD_ICON                  = (guildID: string, hash: string) => encode`/icons/${guildID}/${hash}`;
+export const CLAN_ICON                   = (guildID: string, hash: string) => encode`/clan-badges/${guildID}/${hash}`;
 export const GUILD_SCHEDULED_EVENT_COVER = (eventID: string, hash: string) => encode`/guild-events/${eventID}/${hash}`;
 export const GUILD_SPLASH                = (guildID: string, hash: string) => encode`/splashes/${guildID}/${hash}`;
 export const MEMBER_BANNER               = (guildID: string, userID: string, hash: string) => encode`/guilds/${guildID}/users/${userID}/banners/${hash}`;

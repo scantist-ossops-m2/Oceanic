@@ -13,6 +13,7 @@ const Base = (await import("./dist/lib/structures/Base.js")).default.default;
 const BaseEntitlement = (await import("./dist/lib/structures/BaseEntitlement.js")).default.default;
 const Bucket = (await import("./dist/lib/rest/Bucket.js")).default.default;
 const CategoryChannel = (await import("./dist/lib/structures/CategoryChannel.js")).default.default;
+const Clan = (await import("./dist/lib/structures/Clan.js")).default.default;
 const Client = (await import("./dist/lib/Client.js")).default.default;
 const ClientApplication = (await import("./dist/lib/structures/ClientApplication.js")).default.default;
 const Constants = (await import("./dist/lib/Constants.js")).default;
@@ -99,6 +100,7 @@ export {
     BaseEntitlement,
     Bucket,
     CategoryChannel,
+    Clan,
     Client,
     ClientApplication,
     Constants,

@@ -14,6 +14,7 @@ export { default as Base } from "./structures/Base";
 export { default as BaseEntitlement } from "./structures/BaseEntitlement";
 export { default as Bucket } from "./rest/Bucket";
 export { default as CategoryChannel } from "./structures/CategoryChannel";
+export { default as Clan } from "./structures/Clan";
 export { default as Client } from "./Client";
 export { default as ClientApplication } from "./structures/ClientApplication";
 export * from "./Constants";
