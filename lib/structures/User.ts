@@ -7,7 +7,7 @@ import Clan from "./Clan";
 import { EntitlementOwnerTypes, type ImageFormat } from "../Constants";
 import * as Routes from "../util/Routes";
 import type Client from "../Client";
-import type { RawUser } from "../types/users";
+import type { AvatarDecorationData, RawUser } from "../types/users";
 import type { JSONUser } from "../types/json";
 import type { SearchEntitlementsOptions } from "../types/applications";
 import { UncachedError } from "../util/Errors";
@@ -18,8 +18,13 @@ export default class User extends Base {
     accentColor?: number | null;
     /** The user's avatar hash. */
     avatar: string | null;
-    /** The hash of this user's avatar decoration. This will always resolve to a png. */
+    /**
+     * The hash of this user's avatar decoration.
+     * @deprecated Use {@link Types/Users~AvatarDecorationData#asset | User#avatarDecorationData.asset} instead. This will be removed in 1.12.0.
+     */
     avatarDecoration?: string | null;
+    /** The data for this user's avatar decoration. */
+    avatarDecorationData: AvatarDecorationData | null;
     /** The user's banner hash. If this member was received via the gateway, this will never be present. */
     banner?: string | null;
     /** If this user is a bot. */
@@ -39,6 +44,7 @@ export default class User extends Base {
     constructor(data: RawUser, client: Client) {
         super(data.id, client);
         this.avatar = null;
+        this.avatarDecorationData = null;
         this.bot = !!data.bot;
         this.clan = null;
         this.discriminator = data.discriminator;
@@ -56,8 +62,12 @@ export default class User extends Base {
         if (data.avatar !== undefined) {
             this.avatar = data.avatar;
         }
-        if (data.avatar_decoration !== undefined) {
-            this.avatarDecoration = data.avatar_decoration;
+        if (data.avatar_decoration_data !== undefined) {
+            this.avatarDecorationData = data.avatar_decoration_data ? {
+                asset: data.avatar_decoration_data.asset,
+                skuID: data.avatar_decoration_data.sku_id
+            } : null;
+            this.avatarDecoration = data.avatar_decoration_data?.asset;
         }
         if (data.banner !== undefined) {
             this.banner = data.banner;
@@ -108,11 +118,10 @@ export default class User extends Base {
     /**
      * The url of this user's avatar decoration. This will always be a png.
      * Discord does not combine the decoration and their current avatar for you. This is ONLY the decoration.
-     * @note As of 12/8/2022 (Dec 8) `avatar_decoration` is only visible to bots if they set an `X-Super-Properties` header with a `client_build_number` ~162992. You can do this via the {@link Types/Client~RESTOptions#superProperties | rest.superProperties} option.
      * @param size The dimensions of the image.
      */
     avatarDecorationURL(size?: number): string | null {
-        return this.avatarDecoration ? this.client.util.formatImage(Routes.USER_AVATAR_DECORATION(this.id, this.avatarDecoration), "png", size) : null;
+        return this.avatarDecorationData ? this.client.util.formatImage(Routes.AVATAR_DECORATION(this.avatarDecorationData.asset), "png", size) : null;
     }
 
     /**
@@ -177,15 +186,16 @@ export default class User extends Base {
     override toJSON(): JSONUser {
         return {
             ...super.toJSON(),
-            accentColor:   this.accentColor,
-            avatar:        this.avatar,
-            banner:        this.banner,
-            bot:           this.bot,
-            discriminator: this.discriminator,
-            globalName:    this.globalName,
-            publicFlags:   this.publicFlags,
-            system:        this.system,
-            username:      this.username
+            accentColor:          this.accentColor,
+            avatar:               this.avatar,
+            avatarDecorationData: this.avatarDecorationData,
+            banner:               this.banner,
+            bot:                  this.bot,
+            discriminator:        this.discriminator,
+            globalName:           this.globalName,
+            publicFlags:          this.publicFlags,
+            system:               this.system,
+            username:             this.username
         };
     }
 }

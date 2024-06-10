@@ -17,12 +17,15 @@ import type {
 } from "../types/guilds";
 import type { JSONMember } from "../types/json";
 import { UncachedError } from "../util/Errors";
+import type { AvatarDecorationData } from "../types";
 
 /** Represents a member of a guild. */
 export default class Member extends Base {
     private _cachedGuild?: Guild;
     /** The member's avatar hash, if they have set a guild avatar. */
     avatar: string | null;
+    /** The data for this user's avatar decoration. */
+    avatarDecorationData: AvatarDecorationData | null;
     /** When the member's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire, if active. */
     communicationDisabledUntil: Date | null;
     /** If this member is server deafened. */
@@ -62,6 +65,7 @@ export default class Member extends Base {
         }
         super(user.id, client);
         this.avatar = null;
+        this.avatarDecorationData = null;
         this.communicationDisabledUntil = null;
         this.deaf = !!data.deaf;
         this.flags = 0;
@@ -83,6 +87,12 @@ export default class Member extends Base {
     protected override update(data: Partial<RawMember | RESTMember>): void {
         if (data.avatar !== undefined) {
             this.avatar = data.avatar;
+        }
+        if (data.avatar_decoration_data !== undefined) {
+            this.avatarDecorationData = data.avatar_decoration_data ? {
+                asset: data.avatar_decoration_data.asset,
+                skuID: data.avatar_decoration_data.sku_id
+            } : null;
         }
         if (data.communication_disabled_until !== undefined) {
             this.communicationDisabledUntil = data.communication_disabled_until === null ? null : new Date(data.communication_disabled_until);
@@ -196,6 +206,15 @@ export default class Member extends Base {
     }
 
     /**
+     * The url of this member's avatar decoration (or their user avatar decoration). This will always be a png.
+     * Discord does not combine the decoration and their current avatar for you. This is ONLY the decoration.
+     * @param size The dimensions of the image.
+     */
+    avatarDecorationURL(size?: number): string | null {
+        return this.avatarDecorationData ? this.client.util.formatImage(Routes.AVATAR_DECORATION(this.avatarDecorationData.asset), "png", size) : this.user.avatarDecorationURL(size);
+    }
+
+    /**
      * The url of this user's guild avatar (or their user avatar if no guild avatar is set, or their default avatar if none apply).
      * @param format The format the url should be.
      * @param size The dimensions of the image.
@@ -268,6 +287,7 @@ export default class Member extends Base {
         return {
             ...super.toJSON(),
             avatar:                     this.avatar,
+            avatarDecorationData:       this.avatarDecorationData,
             communicationDisabledUntil: this.communicationDisabledUntil?.getTime() ?? null,
             deaf:                       this.deaf,
             flags:                      this.flags,

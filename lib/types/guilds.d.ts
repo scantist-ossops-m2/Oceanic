@@ -1,5 +1,5 @@
 /** @module Types/Guilds */
-import type { RawUser } from "./users";
+import type { RawAvatarDecorationData, RawUser } from "./users";
 import type {
     AnyThreadChannel,
     OverwriteOptions,
@@ -203,6 +203,7 @@ export interface Sticker {
 
 export interface RawMember {
     avatar?: string | null;
+    avatar_decoration_data?: RawAvatarDecorationData | null;
     communication_disabled_until?: string | null;
     deaf: boolean;
     /** undocumented */

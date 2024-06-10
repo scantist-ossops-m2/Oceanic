@@ -45,6 +45,7 @@ import type {
     PollAnswer
 } from "./channels";
 import type { ScheduledEventEntityMetadata } from "./scheduled-events";
+import type { AvatarDecorationData } from "./users";
 import type {
     ApplicationCommandTypes,
     AutoModerationEventTypes,
@@ -437,6 +438,7 @@ export interface JSONMediaChannel extends JSONThreadOnlyChannel {
 }
 export interface JSONMember extends JSONBase {
     avatar: string | null;
+    avatarDecorationData: AvatarDecorationData | null;
     communicationDisabledUntil: number | null;
     deaf: boolean;
     flags?: number;
@@ -707,6 +709,7 @@ export interface JSONUnavailableGuild extends JSONBase {
 export interface JSONUser extends JSONBase {
     accentColor?: number | null;
     avatar: string | null;
+    avatarDecorationData: AvatarDecorationData | null;
     banner?: string | null;
     bot: boolean;
     discriminator: string;

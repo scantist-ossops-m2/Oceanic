@@ -2,11 +2,10 @@
 import type { RawMember } from "./guilds";
 import type { PremiumTypes } from "../Constants";
 
-// avatar_decoration, (self) bio
 export interface RESTUser {
     accent_color?: number | null;
     avatar: string | null;
-    avatar_decoration?: string | null;
+    avatar_decoration_data?: RawAvatarDecorationData | null;
     banner?: string | null;
     bot?: boolean;
     clan?: RawClan | null;
@@ -24,10 +23,10 @@ export interface RESTUser {
     username: string;
     verified?: boolean;
 }
-export interface RawUser extends Pick<RESTUser, "id" | "username" | "discriminator" | "avatar" | "avatar_decoration" | "bot" | "system" | "banner" | "accent_color" | "clan">, Required<Pick<RESTUser, "public_flags" | "global_name">> {}
+export interface RawUser extends Pick<RESTUser, "id" | "username" | "discriminator" | "avatar" | "avatar_decoration_data" | "bot" | "system" | "banner" | "accent_color" | "clan">, Required<Pick<RESTUser, "public_flags" | "global_name">> {}
 export interface RawUserWithMember extends RawUser, Pick<RESTUser, "member"> {}
-export interface RawOAuthUser extends Pick<RESTUser, "id" | "username" | "discriminator" | "avatar" | "avatar_decoration" | "bot" | "system" | "global_name">, Required<Pick<RESTUser, "banner" | "accent_color" | "locale" | "mfa_enabled" | "email" | "verified" | "flags" | "public_flags" | "clan">> {}
-export interface RawExtendedUser extends Pick<RawOAuthUser, "avatar" | "avatar_decoration" | "bot" | "discriminator" | "email" | "flags" | "id" | "mfa_enabled" | "username" | "verified" | "global_name" | "clan"> {}
+export interface RawOAuthUser extends Pick<RESTUser, "id" | "username" | "discriminator" | "avatar" | "avatar_decoration_data" | "bot" | "system" | "global_name">, Required<Pick<RESTUser, "banner" | "accent_color" | "locale" | "mfa_enabled" | "email" | "verified" | "flags" | "public_flags" | "clan">> {}
+export interface RawExtendedUser extends Pick<RawOAuthUser, "avatar" | "avatar_decoration_data" | "bot" | "discriminator" | "email" | "flags" | "id" | "mfa_enabled" | "username" | "verified" | "global_name" | "clan"> {}
 
 export interface EditSelfUserOptions {
     /** The new avatar (buffer, or full data url). `null` to reset. */
@@ -50,4 +49,14 @@ export interface RawClan {
     identity_enabled: boolean;
     identity_guild_id: string;
     tag: string;
+}
+
+export interface RawAvatarDecorationData {
+    asset: string;
+    sku_id: string;
+}
+
+export interface AvatarDecorationData {
+    asset: string;
+    skuID: string;
 }

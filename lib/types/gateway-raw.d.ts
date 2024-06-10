@@ -10,7 +10,7 @@ import type {
     RawUnavailableGuild,
     RawSticker
 } from "./guilds";
-import type { RawExtendedUser, RawUser } from "./users";
+import type { RawAvatarDecorationData, RawExtendedUser, RawUser } from "./users";
 import type {
     PresenceUpdate,
     RawAutoModerationActionExecution,
@@ -259,6 +259,7 @@ export interface GuildMemberRemovePacket extends BaseDispatchPacket {
 export interface GuildMemberUpdatePacket extends BaseDispatchPacket {
     d: {
         avatar: string | null;
+        avatar_decoration_data?: RawAvatarDecorationData | null;
         communication_disabled_until?: string | null;
         deaf?: boolean;
         flags?: number;
