@@ -620,6 +620,7 @@ export const StagePermissions = [
 export const AllStagePermissions = StagePermissions.reduce((all, p) => all | p, 0n);
 export const AllStagePermissionNames = StagePermissions.map(p => PermissionValueToName[String(p) as `${typeof p}`]);
 
+/** These permissions require the bot owner's account to have 2FA enabled in guilds where 2FA is a requirement. */
 export const ModeratorPermissions = [
     Permissions.KICK_MEMBERS,
     Permissions.BAN_MEMBERS,
@@ -836,6 +837,16 @@ export enum MessageTypes {
     POLL                                         = 43,
     PURCHASE_NOTIFICATION                        = 44,
 }
+
+/** Messages of these types cannot be deleted. */
+export const UndeletableMessageTypes = [
+    MessageTypes.RECIPIENT_ADD,
+    MessageTypes.RECIPIENT_REMOVE,
+    MessageTypes.CALL,
+    MessageTypes.CHANNEL_NAME_CHANGE,
+    MessageTypes.CHANNEL_ICON_CHANGE,
+    MessageTypes.THREAD_STARTER_MESSAGE
+] as const;
 
 export enum MessageActivityTypes {
     JOIN         = 1,
