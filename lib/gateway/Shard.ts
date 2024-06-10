@@ -792,9 +792,14 @@ export default class Shard extends TypedEmitter<ShardEvents> {
                     guild,
                     guildID:   packet.d.guild_id,
                     id:        packet.d.message_id ,
-                    // @TODO (1.11.0): Convert this to only be User, and add a member field
-                    author:    packet.d.message_author_id === undefined ? undefined : guild?.members.get(packet.d.message_author_id) ?? this.client.users.get(packet.d.message_author_id) ?? { id: packet.d.message_author_id }
-                }, reactor, packet.d.emoji, packet.d.burst);
+                    author:    packet.d.message_author_id === undefined ? undefined : this.client.users.get(packet.d.message_author_id) ?? { id: packet.d.message_author_id },
+                    member:    packet.d.message_author_id === undefined ? undefined : guild?.members.get(packet.d.message_author_id) ?? { id: packet.d.message_author_id }
+                }, reactor, {
+                    burst:       packet.d.burst,
+                    burstColors: packet.d.burst_colors,
+                    emoji:       packet.d.emoji,
+                    type:        packet.d.type
+                });
                 break;
             }
 
@@ -831,7 +836,12 @@ export default class Shard extends TypedEmitter<ShardEvents> {
                     guild:     packet.d.guild_id ? this.client.guilds.get(packet.d.guild_id) : undefined,
                     guildID:   packet.d.guild_id,
                     id:        packet.d.message_id
-                }, reactor, packet.d.emoji, packet.d.burst);
+                }, reactor, {
+                    burst:       packet.d.burst,
+                    burstColors: packet.d.burst_colors,
+                    emoji:       packet.d.emoji,
+                    type:        packet.d.type
+                });
                 break;
             }
 

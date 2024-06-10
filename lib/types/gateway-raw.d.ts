@@ -37,7 +37,7 @@ import type { RawScheduledEvent } from "./scheduled-events";
 import type { RawVoiceState } from "./voice";
 import type { RawInteraction } from "./interactions";
 import type { RawAuditLogEntry } from "./audit-log";
-import type { GatewayOPCodes, InviteTargetTypes } from "../Constants";
+import type { GatewayOPCodes, InviteTargetTypes, ReactionType } from "../Constants";
 
 export type AnyReceivePacket = AnyDispatchPacket | HeartbeatPacket | ReconnectPacket | InvalidSessionPacket | HelloPacket | HeartbeatAckPacket;
 export interface RawPacket {
@@ -427,6 +427,7 @@ export interface MessageReactionAddPacket extends BaseDispatchPacket {
         member?: RawMember;
         message_author_id?: string;
         message_id: string;
+        type: ReactionType;
         user_id: string;
     };
     t: "MESSAGE_REACTION_ADD";
@@ -440,6 +441,7 @@ export interface MessageReactionRemovePacket extends BaseDispatchPacket {
         emoji: PartialEmoji;
         guild_id?: string;
         message_id: string;
+        type: ReactionType;
         user_id: string;
     };
     t: "MESSAGE_REACTION_REMOVE";

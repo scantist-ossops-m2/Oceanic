@@ -1242,3 +1242,10 @@ export interface PollAnswerCount {
     /** The IDs of the users that voted. This will always be out of sync unless you either {@link Poll#getAnswerUsers | fetch the answer voters over REST}, or if the poll was created after the bot started, and stays in the cache. */
     users: Array<string>;
 }
+
+export interface EventReaction {
+    burst: boolean;
+    burstColors?: Array<string>;
+    emoji: PartialEmoji;
+    type: ReactionType;
+}

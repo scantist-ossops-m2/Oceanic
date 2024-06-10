@@ -11,7 +11,8 @@ import type {
     ThreadMember,
     UncachedThreadMember,
     AnyVoiceChannel,
-    PollAnswer
+    PollAnswer,
+    EventReaction
 } from "./channels";
 import type { RawRequest } from "./request-handler";
 import type { AutoModerationActionExecution, DeletedPrivateChannel, VoiceChannelEffect } from "./gateway";
@@ -180,9 +181,9 @@ export interface ClientEvents {
     /** @event Emitted when a vote is added to a poll. Requires the `GUILD_MESSAGE_POLLS` for guild messages, and `DIRECT_MESSAGE_POLLS` for direct messages. */
     messagePollVoteRemove: [message: PossiblyUncachedMessage, user: User | Uncached, answer: PollAnswer | { answerID: number; }];
     /** @event Emitted when a reaction is added to a message. For uncached messages, `author` will not be present if the reaction was added to a webhook message. Requires the `GUILD_MESSAGE_REACTIONS` for guild messages, and `DIRECT_MESSAGE_REACTIONS` for direct messages. */
-    messageReactionAdd: [message: PossiblyUncachedMessage & { author?: Member | User | Uncached; }, reactor: Member | User | Uncached, reaction: PartialEmoji, burst: boolean];
+    messageReactionAdd: [message: PossiblyUncachedMessage & { author?: User | Uncached; member?: Member | Uncached; }, reactor: Member | User | Uncached, reaction: EventReaction];
     /** @event Emitted when a reaction is removed from a message. Requires the `GUILD_MESSAGE_REACTIONS` for guild messages, and `DIRECT_MESSAGE_REACTIONS` for direct messages. */
-    messageReactionRemove: [message: PossiblyUncachedMessage, reactor: Member | User | Uncached, reaction: PartialEmoji, burst: boolean];
+    messageReactionRemove: [message: PossiblyUncachedMessage, reactor: Member | User | Uncached, reaction: EventReaction];
     /** @event Emitted when all reactions are removed from a message. Requires the `GUILD_MESSAGE_REACTIONS` for guild messages, and `DIRECT_MESSAGE_REACTIONS` for direct messages. */
     messageReactionRemoveAll: [message: PossiblyUncachedMessage];
     /** @event Emitted when a specific reaction is removed for all users from a message. Requires the `GUILD_MESSAGE_REACTIONS` for guild messages, and `DIRECT_MESSAGE_REACTIONS` for direct messages. */
