@@ -675,6 +675,7 @@ export interface RawMessage {
     application_id?: string;
     attachments: Array<RawAttachment>;
     author: RawUser; // this can be an invalid user if `webhook_id` is set
+    call?: RawCall;
     channel_id: string;
     components?: Array<RawMessageActionRow>;
     content: string;
@@ -706,6 +707,16 @@ export interface RawMessage {
     tts: boolean;
     type: MessageTypes;
     webhook_id?: string;
+}
+
+export interface RawCall {
+    ended_timestamp?: string | null;
+    participants: Array<string>;
+}
+
+export interface Call {
+    endedTimestamp: Date | null;
+    participants: Array<string>;
 }
 
 export interface ChannelMention {

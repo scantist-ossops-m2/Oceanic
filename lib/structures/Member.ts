@@ -119,10 +119,11 @@ export default class Member extends Base {
         }
     }
 
-    /** If the member associated with the user is a bot. */
+    /** If the user associated with this member is a bot. */
     get bot(): boolean {
         return this.user.bot;
     }
+
     /** The Discord-tag of the user associated with this member. */
     get discriminator(): string {
         return this.user.discriminator;

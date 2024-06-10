@@ -36,7 +36,8 @@ import type {
     AnyThreadChannel,
     RoleSubscriptionData,
     MessageInteractionMetadata,
-    GetPollAnswerUsersOptions
+    GetPollAnswerUsersOptions,
+    Call
 } from "../types/channels";
 import type { RawMember } from "../types/guilds";
 import type { DeleteWebhookMessageOptions, EditWebhookMessageOptions } from "../types/webhooks";
@@ -66,6 +67,8 @@ export default class Message<T extends AnyTextableChannel | Uncached = AnyTextab
     attachments: TypedCollection<RawAttachment, Attachment>;
     /** The author of this message. */
     author: User;
+    /** The call associated with this message. */
+    call?: Call;
     /** The ID of the channel this message was created in. */
     channelID: string;
     /** The components on this message. */
@@ -209,6 +212,12 @@ export default class Message<T extends AnyTextableChannel | Uncached = AnyTextab
             for (const attachment of data.attachments) {
                 this.attachments.update(attachment);
             }
+        }
+        if (data.call !== undefined) {
+            this.call = {
+                endedTimestamp: data.call.ended_timestamp ? new Date(data.call.ended_timestamp) : null,
+                participants:   data.call.participants
+            };
         }
         if (data.components !== undefined) {
             this.components = this.client.util.componentsToParsed(data.components);
