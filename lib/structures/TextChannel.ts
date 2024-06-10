@@ -25,9 +25,10 @@ export default class TextChannel extends ThreadableChannel<TextChannel, PublicTh
     /**
      * Follow an announcement channel to this channel.
      * @param webhookChannelID The ID of the channel to follow the announcement channel to.
+     * @param reason The reason for following the announcement channel.
      */
-    async followAnnouncement(webhookChannelID: string): Promise<FollowedChannel> {
-        return this.client.rest.channels.followAnnouncement(this.id, webhookChannelID);
+    async followAnnouncement(webhookChannelID: string, reason?: string): Promise<FollowedChannel> {
+        return this.client.rest.channels.followAnnouncement(this.id, webhookChannelID, reason);
     }
 
     /**

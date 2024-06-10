@@ -44,9 +44,10 @@ export default class AnnouncementChannel extends ThreadableChannel<AnnouncementC
     /**
      * Follow this announcement channel.
      * @param webhookChannelID The ID of the channel crossposted messages should be sent to. The client must have the `MANAGE_WEBHOOKS` permission in this channel.
+     * @param reason The reason for following this channel.
      */
-    async follow(webhookChannelID: string): Promise<FollowedChannel> {
-        return this.client.rest.channels.followAnnouncement(this.id, webhookChannelID);
+    async follow(webhookChannelID: string, reason?: string): Promise<FollowedChannel> {
+        return this.client.rest.channels.followAnnouncement(this.id, webhookChannelID, reason);
     }
 
     override toJSON(): JSONAnnouncementChannel {

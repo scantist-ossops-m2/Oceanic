@@ -554,11 +554,13 @@ export default class Channels {
      * Follow an announcement channel.
      * @param channelID The ID of the channel to follow announcements from.
      * @param webhookChannelID The ID of the channel crossposted messages should be sent to. The client must have the `MANAGE_WEBHOOKS` permission in this channel.
+     * @param reason The reason for following the announcement channel.
      * @caching This method **does not** cache its result.
      */
-    async followAnnouncement(channelID: string, webhookChannelID: string): Promise<FollowedChannel> {
+    async followAnnouncement(channelID: string, webhookChannelID: string, reason?: string): Promise<FollowedChannel> {
         return this._manager.authRequest<RawFollowedChannel>({
             method: "POST",
+            reason,
             path:   Routes.CHANNEL_FOLLOWERS(channelID),
             json:   { webhook_channel_id: webhookChannelID }
         }).then(data => ({
