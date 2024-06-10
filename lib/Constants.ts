@@ -834,6 +834,7 @@ export enum MessageTypes {
     CUSTOM_GIFT                                  = 41,
     GUILD_GAMING_STATS_PROMPT                    = 42,
     POLL                                         = 43,
+    PURCHASE_NOTIFICATION                        = 44,
 }
 
 export enum MessageActivityTypes {
