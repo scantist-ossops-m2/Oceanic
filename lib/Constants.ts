@@ -620,6 +620,23 @@ export const StagePermissions = [
 export const AllStagePermissions = StagePermissions.reduce((all, p) => all | p, 0n);
 export const AllStagePermissionNames = StagePermissions.map(p => PermissionValueToName[String(p) as `${typeof p}`]);
 
+export const ModeratorPermissions = [
+    Permissions.KICK_MEMBERS,
+    Permissions.BAN_MEMBERS,
+    Permissions.ADMINISTRATOR,
+    Permissions.MANAGE_CHANNELS,
+    Permissions.MANAGE_GUILD,
+    Permissions.MANAGE_MESSAGES,
+    Permissions.MANAGE_ROLES,
+    Permissions.MANAGE_WEBHOOKS,
+    Permissions.MANAGE_GUILD_EXPRESSIONS,
+    Permissions.MANAGE_THREADS,
+    Permissions.MODERATE_MEMBERS,
+    Permissions.VIEW_CREATOR_MONETIZATION_ANALYTICS
+] as const;
+export const AllModeratorPermissions = ModeratorPermissions.reduce((all, p) => all | p, 0n);
+export const AllModeratorPermissionNames = ModeratorPermissions.map(p => PermissionValueToName[String(p) as `${typeof p}`]);
+
 export const PermissionNames = Object.keys(Permissions) as Array<PermissionName>;
 export type PermissionName = keyof typeof Permissions;
 
