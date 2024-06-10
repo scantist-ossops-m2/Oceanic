@@ -212,7 +212,10 @@ export default class Member extends Base {
     }
 
     /**
-     * Disable the `BYPASSES_VERIFICATION` flag for this member. Requires the **Manage Guild** permission.
+     * Disable the `BYPASSES_VERIFICATION` flag for this member. Requires any of the following permission sets:
+     * * MANAGE_GUILD
+     * * MANAGE_ROLES
+     * * MODERATE_MEMBERS and KICK_MEMBERS and BAN_MEMBERS
      * @param reason The reason for disabling the flag.
      */
     async disableVerificationBypass(reason?: string): Promise<void> {
