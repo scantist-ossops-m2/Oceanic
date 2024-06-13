@@ -1647,7 +1647,7 @@ export default class Shard extends TypedEmitter<ShardEvents> {
         this._heartbeatInterval = null;
         this._guildCreateTimeout = null;
         this.globalBucket = new Bucket(120, 60000, { reservedTokens: 5 });
-        this.presence = JSON.parse(JSON.stringify(this.client.shards.options.presence)) as Shard["presence"];
+        this.presence = structuredClone(this.client.shards.options.presence) as Shard["presence"];
         this.presenceUpdateBucket = new Bucket(5, 20000);
         this.resumeURL = null;
     }
