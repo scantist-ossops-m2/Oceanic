@@ -1,4 +1,4 @@
-name: Publish Dev Version
+name: Publish Release
 on:
   workflow_dispatch:
   release:
@@ -20,7 +20,7 @@ jobs:
       - name: Install PNPM
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 9
           run_install: false
       - name: Install Node
         uses: actions/setup-node@v3
