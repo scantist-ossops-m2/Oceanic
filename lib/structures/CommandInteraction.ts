@@ -295,7 +295,10 @@ export default class CommandInteraction<T extends AnyInteractionChannel | Uncach
         return this.data.type === ApplicationCommandTypes.USER;
     }
 
-    /** Show a "premium required" response to the user. This is an initial response, and more than one initial response cannot be used. */
+    /**
+     * Show a "premium required" response to the user. This is an initial response, and more than one initial response cannot be used.
+     * @deprecated The {@link Constants~InteractionTypes.PREMIUM_REQUIRED | PREMIUM_REQUIRED} interaction response type is now deprecated in favor of using {@link Types/Channels~PremiumButton | custom premium buttons}.
+     */
     async premiumRequired(): Promise<void> {
         if (this.acknowledged) {
             throw new TypeError("Interactions cannot have more than one initial response.");
